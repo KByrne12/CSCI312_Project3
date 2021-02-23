@@ -24,10 +24,10 @@ int main()
 	struct sockaddr_in sAddr;
 	struct sockaddr_in cAddr;
 	int cSocLen;
-	struct sigaction alarm_act;
+	//struct sigaction alarm_act;
 	char buf[BUFL];
 	
-	
+	/*
 	alarm_act.sa_handler = (void(*)(int)) alarmHandle;
 	sigemptyset(&alarm_act.sa_mask);
 	alarm_act.sa_flags = 0;
@@ -37,7 +37,7 @@ int main()
 		printf("Error (%d) setting handle. \n", error);
 		exit(1);
 	}
-	
+	*/
 	
 	//socket creation
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
@@ -78,8 +78,11 @@ int main()
 		exit(5);
 	}
 	
-	printf("Alarm set for 1 second");
-	error = alarm(1);
+	
+	
+	//printf("Alarm set for 1 second");
+	//error = alarm(1);
+	
 	
 	
 	error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
