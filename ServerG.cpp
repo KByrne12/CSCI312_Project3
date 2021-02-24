@@ -42,6 +42,8 @@ int main()
 		exit(12);
 	}
 	
+	
+	//change?
 	execl("./TicTacToe","TicTacToe", NULL ,(char)* NULL);
 	
 	
