@@ -19,6 +19,7 @@ int main()
 	struct sockaddr_in cAddr;
 	int cSocLen;
 	char buf[BUFL];
+	char param[BUFL];
 	
 	//struct sigaction alarm_act;
 	/*
@@ -65,12 +66,17 @@ int main()
 	}
 	
 	
-	cSocket = accept(sSocket, (struct sockaddr *)&cAddr, &cSocLen);
-	if (cSocket == -1)
+	//add condition to check for how many attempting to connect
+	while(1)
 	{
-		perror("Accept failed.");
-		exit(5);
-	}
+	
+	
+		cSocket = accept(sSocket, (struct sockaddr *)&cAddr, &cSocLen);
+		if (cSocket == -1)
+		{
+			perror("Accept failed.");
+			exit(5);
+		}
 	
 	
 	
@@ -82,25 +88,26 @@ int main()
 	
 	
 	
-	cpid = fork();
-	if (cpid == 0)				//child
-	{
-		println("Establishing connection.");
-		execl("./ServerG","ServerG", sSocket,(char)* NULL);
-		error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
-		if (error == -1)
+		cpid = fork();
+		if (cpid == 0)				//child
 		{
-			perror("read failed");
-			exit(6);
+			println("Establishing connection.");
+			execl("./ServerG","ServerG", NULL,(char)* NULL);
+			error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
+			if (error == -1)
+			{
+				perror("read failed");
+				exit(6);
+			}
+			printf("Message from Client: %s\n", Buf);
+		
 		}
-		printf("Message: %s\n", Buf);
+		else if(cpid > 0)			//parent
+		{
 		
-	}
-	else if(cpid > 0)			//parent
-	{
-		
-	}
+		}
 	
+	}
 	
 	return 0;
 }

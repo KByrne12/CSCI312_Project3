@@ -3,29 +3,22 @@
 
 #define BUFL 100
 
-int main()
+int main(int argc, char *argv[])
 {
 	int sSocket;
 	int cSocket;
 	struct sockaddr_in sAddr;
 	struct sockaddr_in cAddr;
 	int cSocLen;
-	int error;
-	struct addrinfo info;
-	struct addrinfo *serverResult;
+	int error;	
 	
-	//server information
 	
-	memset(&info, 0, sizeof(struct addrinfo));
-	info.ai_family = AF_INET;
-	info.ai_socktype = SOCK_STREAM;
-	info.ai_protocol = 0; // any protocol
-	error = getaddrinfo(SERVERNAME, SERVERPORTSTR, &info, &serverResult);
-	if (error == -1)
-	{
-		perror(gai_strerror(error));
-		exit(10);
-	}
+	//server information	
+	memset (&cAddr, 0 , sizeof(struct sockaddr_in));
+	cAddr.sin_family = AF_INET;
+	cAddr.sin_port = htons(SERVERPORT);
+	cAddr.sin_Addr.s_addr = inet_addr(SERVERIP);
+	
 	
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
 	if (cSocket == -1)
@@ -43,13 +36,13 @@ int main()
 	}
 	
 	
-	//change?
+	//change to running client?
 	execl("./TicTacToe","TicTacToe", NULL ,(char)* NULL);
 	
 	
 	error = send(cSocket, "Connection complete.\n", BUFL, 0);
 	
-	printf("number of bytes sent: %d\n",error);
+	println("Ending connection to ServerG.");
 	
 	
 	exit (0);
