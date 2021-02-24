@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "soc.h"
 
 
 #define BUFL 100
