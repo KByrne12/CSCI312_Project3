@@ -1,8 +1,4 @@
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "soc.h"
+#include "Server.h"
 
 
 #define BUFL 100
@@ -15,6 +11,21 @@ int main()
 	struct sockaddr_in cAddr;
 	int cSocLen;
 	int error;
+	struct addrinfo info;
+	struct addrinfo *serverResult;
+	
+	//server information
+	
+	memset(&info, 0, sizeof(struct addrinfo));
+	info.ai_family = AF_INET;
+	info.ai_socktype = SOCK_STREAM;
+	info.ai_protocol = 0; // any protocol
+	error = getaddrinfo(SERVERNAME, SERVERPORTSTR, &info, &serverResult);
+	if (error == -1)
+	{
+		perror(gai_strerror(error));
+		exit(10);
+	}
 	
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
 	if (cSocket == -1)

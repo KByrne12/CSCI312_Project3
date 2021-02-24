@@ -1,13 +1,7 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include "soc.h"
+#include "Server.h"
 #include <signal.h>
 
 
-#define BUFL 100
 
 void alarmHandle(int signal)
 {
@@ -24,9 +18,9 @@ int main()
 	struct sockaddr_in sAddr;
 	struct sockaddr_in cAddr;
 	int cSocLen;
-	//struct sigaction alarm_act;
 	char buf[BUFL];
 	
+	//struct sigaction alarm_act;
 	/*
 	alarm_act.sa_handler = (void(*)(int)) alarmHandle;
 	sigemptyset(&alarm_act.sa_mask);
@@ -85,13 +79,7 @@ int main()
 	
 	
 	
-	error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
-	if (error == -1)
-	{
-		perror("read failed");
-		exit(6);
-	}
-	printf("Message: %s\n", Buf);
+	
 	
 	
 	cpid = fork();
@@ -99,6 +87,13 @@ int main()
 	{
 		println("Establishing connection.");
 		execl("./ServerG","ServerG", sSocket,(char)* NULL);
+		error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
+		if (error == -1)
+		{
+			perror("read failed");
+			exit(6);
+		}
+		printf("Message: %s\n", Buf);
 		
 	}
 	else if(cpid > 0)			//parent
