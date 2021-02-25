@@ -1,4 +1,19 @@
-#include "soc.h"
+//#include "soc.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <string.h>
+
+#define SERVERPORT 31200
+#define SERVERPORTSTR "31200"
+#define SERVERIP "199.17.28.75"
+#define SERVERNAME "ahscentos"
+#define BUFL 100
 #include <signal.h>
 
 
@@ -17,7 +32,7 @@ int main()
 	int cSocket;
 	struct sockaddr_in sAddr;
 	struct sockaddr_in cAddr;
-	int cSocLen;
+	unsigned int cSocLen;
 	char buf[BUFL];
 	char param[BUFL];
 	
@@ -44,7 +59,7 @@ int main()
 	
 	
 	// server address
-	memset($sAddr, 0, sizeof(struct sockaddr_in));
+	memset(&sAddr, 0, sizeof(struct sockaddr_in));
 	sAddr.sin_family = AF_INET;
 	sAddr.sin_port = htons(SERVERPORT);
 	sAddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -80,9 +95,6 @@ int main()
 	
 	
 	
-	//printf("Alarm set for 1 second");
-	//error = alarm(1);
-	
 	
 	
 	
@@ -91,15 +103,15 @@ int main()
 		cpid = fork();
 		if (cpid == 0)				//child
 		{
-			println("Establishing connection.");
-			execl("./ServerG","ServerG", NULL,(char)* NULL);
-			error = recv(cSocket, Buf, BUFL, MSG_WAITALL);
+			printf("Establishing connection.\n");
+			execl("./ServerG","ServerG", NULL,NULL);
+			error = recv(cSocket, buf, BUFL, MSG_WAITALL);
 			if (error == -1)
 			{
 				perror("read failed");
 				exit(6);
 			}
-			printf("Message from Client: %s\n", Buf);
+			printf("Message from Client: %s\n", buf);
 		
 		}
 		else if(cpid > 0)			//parent

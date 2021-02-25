@@ -1,7 +1,20 @@
-#include "soc.h"
+//#include "soc.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <string.h>
 
-
+#define SERVERPORT 31200
+#define SERVERPORTSTR "31200"
+#define SERVERIP "199.17.28.75"
+#define SERVERNAME "ahscentos"
 #define BUFL 100
+
 
 int main(int argc, char *argv[])
 {
@@ -37,12 +50,12 @@ int main(int argc, char *argv[])
 	
 	
 	//change to running client?
-	execl("./TicTacToe","TicTacToe", NULL ,(char)* NULL);
+	execl("./clientnew","clientnew", NULL , NULL);
 	
 	
 	error = send(cSocket, "Connection complete.\n", BUFL, 0);
 	
-	println("Ending connection to ServerG.");
+	printf("Ending connection to ServerG.\n");
 	
 	
 	exit (0);
