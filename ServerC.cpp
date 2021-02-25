@@ -50,12 +50,14 @@ int main()
 	*/
 	
 	//socket creation
+	printf("Attempting to create socket.\n");
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
 	if (sSocket == -1)
 	{
 		perror("SocServer: socket creation failed");
 		exit(2);
 	}
+	printf("Socket creation successful.\n");
 	
 	
 	// server address
@@ -65,27 +67,30 @@ int main()
 	sAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	
 	//bind socket to server
+	printf("Attempting to bind.\n");
 	error = bind (sSocket, (struct sockaddr*)&sAddr, sizeof(struct sockaddr_in));
 	if (error == -1)
 	{
 		perror("bind address to socket failed");
 		exit(3);
 	}
+	printf("Bind Successful.\n");
 	
 	//listen 
+	printf("Attempting Listen.\n");
 	error = listen(sSocket,5);
 	if (error == -1)
 	{
 		perror("Listen failed.");
 		exit(4);
 	}
-	
+	printf("Listen successful.\n");
 	
 	//add condition to check for how many attempting to connect
 	while(1)
 	{
-	
-	
+		
+		printf("Attempting to Accept.\n");
 		cSocket = accept(sSocket, (struct sockaddr *)&cAddr, &cSocLen);
 		if (cSocket == -1)
 		{
@@ -93,7 +98,7 @@ int main()
 			exit(5);
 		}
 	
-	
+		printf("Accept successful.\n");
 	
 	
 	
