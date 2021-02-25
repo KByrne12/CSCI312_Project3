@@ -1,23 +1,49 @@
 #include <stdio.h>
 #include <conio.h>
+//include <time.h>
 
 char square[10] = { 'o', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 int checkwin();
 void board();
+void plays();
+//void delay();
 
-int main()
-{
-    int player = 1, i, choice;
+
+// void delay(int number_of_seconds) 
+// { 
+//     // Converting time into milli_seconds 
+//     int milli_seconds = 1000 * number_of_seconds; 
+  
+//     // Storing start time 
+//     clock_t start_time = clock(); 
+  
+//     // looping till required time is not achieved 
+//     while (clock() < start_time + milli_seconds) 
+//         ; 
+// } 
+
+void plays(){
+	
+	int player = 1, i, choice;
+    
+    int lower = 1;
+	int upper = 9;
 
     char mark;
     do
     {
         board();
         player = (player % 2) ? 1 : 2;
-
-        printf("Player %d, enter a number:  ", player);
-        scanf("%d", &choice);
+        
+        if (player == 1){
+			choice = (rand() % (upper - lower + 1)) + lower;
+			printf("Player %d, enter a number: %d\n ", player, choice);
+		}
+		else{
+			printf("Player %d, enter a number: ", player);
+        	scanf("%d", &choice);			
+		}
 
         mark = (player == 1) ? 'X' : 'O';
 
@@ -52,8 +78,14 @@ int main()
         {
             printf("Invalid move ");
 
-            player--;
-            getch();
+            if (player == 1){
+            	plays();
+			}
+			else{
+				player--;
+            	getch();
+			}
+			
         }
         i = checkwin();
 
@@ -66,14 +98,17 @@ int main()
         printf("==>\aPlayer %d is the WINNER!!! ", --player);
     else
         printf("==>\aGame draw");
+	
+}
 
-    getch();
-
+int main()
+{
+    plays();
+    
     return 0;
 }
 
 /*********************************************
-
 FUNCTION TO RETURN GAME STATUS
 1 FOR GAME IS OVER WITH RESULT
 -1 FOR GAME IS IN PROGRESS
