@@ -110,6 +110,8 @@ int main()
 		{
 			printf("Establishing connection.\n");
 			execl("./ServerG","ServerG", NULL,NULL);
+			
+			printf("Receiving information from Client.\n");
 			error = recv(cSocket, buf, BUFL, MSG_WAITALL);
 			if (error == -1)
 			{

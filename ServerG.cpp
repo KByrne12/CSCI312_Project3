@@ -26,33 +26,39 @@ int main(int argc, char *argv[])
 	int error;	
 	
 	
-	//server information	
+	//server information
+	
 	memset (&cAddr, 0 , sizeof(struct sockaddr_in));
 	cAddr.sin_family = AF_INET;
 	cAddr.sin_port = htons(SERVERPORT);
 	cAddr.sin_addr.s_addr = inet_addr(SERVERIP);
+
 	
-	
+	printf("Attempting to create socket.\n");	
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
 	if (cSocket == -1)
 	{
 		perror("Socket creation failed.\n");
 		exit (11);
 	}
+	printf("Socket creation successful.\n");
 	
 	
+	printf("Attemping to connect socket.\n");
 	error = connect(cSocket, (struct sockaddr *)&cAddr, sizeof(struct sockaddr_in));
 	if (error = -1)
 	{
 		perror ("Connection failed.\n");
 		exit(12);
 	}
+	printf("Connection successful.\n");
 	
 	
 	//change to running client?
+	printf("Running Client.\n");
 	execl("./clientnew","clientnew", NULL , NULL);
 	
-	
+	printf("Returning completion statement to Server.\n");
 	error = send(cSocket, "Connection complete.\n", BUFL, 0);
 	
 	printf("Ending connection to ServerG.\n");
