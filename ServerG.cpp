@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	memset (&cAddr, 0 , sizeof(struct sockaddr_in));
 	cAddr.sin_family = AF_INET;
 	cAddr.sin_port = htons(SERVERPORT);
-	cAddr.sin_Addr.s_addr = inet_addr(SERVERIP);
+	cAddr.sin_addr.s_addr = inet_addr(SERVERIP);
 	
 	
 	sSocket = socket(AF_INET , SOCK_STREAM , 0);
