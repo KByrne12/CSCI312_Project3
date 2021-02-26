@@ -1,0 +1,46 @@
+.TH Project 3
+
+.SH NAME
+.B Project 3 
+-server that uses sockets to play tictactoe
+
+.SH SYNOPSIS
+.B Project 3
+.RB {|OBJECT |}
+.RB {|OPTIONS |}
+
+.SH DESCRIPTION
+The server is a concurrent server which executes a fork system call to create a child process to handle a particular clinet connection. 
+The child process exec another program called ServerG which perfoms the server tasks for playing the game. The client is responsible 
+for all communication with the human user who is playing the game. The game is tictactoe and is played by the user entering a number 
+that corresponds to a specific box. If the specific box is taken, they will need to enter a new number. The computer then goes and the 
+winner is determinied when either the user or computer gets three in a row.
+
+.SH OPTIONS
+-what do we include for options?
+
+.SH FILES
+ServerC.c
+ServerG.c
+soc.h
+client.c
+
+.SH EXAMPLES
+Maybe include examples of common usage after Naomie is done
+
+.SH DIAGNOSTICS
+maybe?
+
+.SH EXIT STATUS
+.TP
+.B
+0
+Success
+
+.TP
+.B
+-1
+Failed
+
+.SH CREDITS
+Yves Zakra, Kaleb Byrne, Rose Hughes, Naomie Bambara
