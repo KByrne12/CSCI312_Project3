@@ -11,7 +11,7 @@
 
 .SH DESCRIPTION
 The server is a concurrent server which executes a fork system call to create a child process to handle a particular client connection. 
-The child process exec another program called ServerG which perfoms the server tasks for playing the game. The client is responsible 
+The child process execl another program called ServerG which perfoms the server tasks for playing the game. The client is responsible 
 for all communication with the human user who is playing the game. The game is tictactoe and is played by the user entering a number 
 that corresponds to a specific box. If the specific box is taken, they will need to enter a new number. The computer then goes and the 
 winner is determinied when either the user or computer gets three in a row.
