@@ -1,4 +1,5 @@
 //#include "soc.h"
+/*
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,12 +11,15 @@
 #include <string.h>
 #include <time.h>
 
-#define SERVERPORT 31200
-#define SERVERPORTSTR "31200"
+#define SERVERPORT 31201
+#define SERVERPORTSTR "31201"
 #define SERVERIP "199.17.28.75"
 #define SERVERNAME "ahscentos"
 #define BUFL 100
+*/
 
+#include "ClientServerHeader.h"
+using namespace std;
 
 //Function to get the game status e.g. GAME WON, GAME DRAW GAME IN CONTINUE MODE
 // 0 | 1 | 2
@@ -96,7 +100,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	err = send(cSocket,gg, sizeof(gg),0);
-	return 0;	
+	exit(0);	
 }
 
 

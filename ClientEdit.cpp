@@ -1,5 +1,5 @@
 //Tic Tac Toe Game in C++
-
+/*
 #include <stdio.h>	//printf
 #include <string.h>	//strlen
 #include <sys/socket.h>	//socket
@@ -9,13 +9,16 @@
 #include <iostream>
 #include <stdlib.h>
 
-#define SERVERPORT 31200
-#define SERVERPORTSTR "31200"
+#define SERVERPORT 31201
+#define SERVERPORTSTR "31201"
 #define SERVERIP "199.17.28.75"
 #define SERVERNAME "ahscentos"
 #define BUFL 100
 #include <signal.h>
 
+using namespace std;
+*/
+#include "ClientServerHeader.h"
 using namespace std;
 
 //Array for the board
@@ -102,7 +105,7 @@ int main(int argc , char *argv[])
 	struct sockaddr_in cAddr;
 	int cSocLen;
 	char buf[BUFL];
-	char found[BUFL];
+	size_t found;
 	
 	memset (&cAddr, 0, sizeof (struct sockaddr_in));
 	cAddr.sin_family = AF_INET;
@@ -124,28 +127,29 @@ int main(int argc , char *argv[])
 	}
 	
     cout<<"\t\t\tT I C K -- T A C -- T O E -- G A M E\t\t\t";
-    while(1){
+    while(1)
+	{
         display_board(board);
         player_turn(board);
 		err = send(cSocket, board, sizeof(board),0);
-			if (err == -1)
-			{
-				perror ("Send failed.");
-				exit(2);
-			}
+		if (err == -1)
+		{
+			perror ("Send failed.");
+			exit(2);
+		}
 		err = recv(cSocket, board, sizeof(board),0);
-			if (err == -1)
-			{
-				perror ("receive failed.");
-				exit(2);
-			}
-	/*	found = string(board).find("GameOver");
+		if (err == -1)
+		{
+			perror ("receive failed.");
+			exit(2);
+		}
+		found = string(board).find("GameOver");
 		if (found != string::npos)
 		{
 			printf("exiting");
 			break;
 		}
-	*/	
+		
     }
     
 	printf("Client is exiting.\n");

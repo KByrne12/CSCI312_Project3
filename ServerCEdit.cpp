@@ -1,4 +1,5 @@
 //#include "soc.h"
+/*
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,14 +11,16 @@
 #include <netdb.h>
 #include <string.h>
 
-#define SERVERPORT 31200
-#define SERVERPORTSTR "31200"
+#define SERVERPORT 31201
+#define SERVERPORTSTR "31201"
 #define SERVERIP "199.17.28.75"
 #define SERVERNAME "ahscentos"
 #define BUFL 100
 #include <signal.h>
+*/
 
-
+#include "ClientServerHeader.h"
+using namespace std;
 
 int main()
 {
@@ -31,7 +34,7 @@ int main()
 	struct sockaddr_in cAddr;
 	unsigned int cSocLen;
 	char buf[BUFL];
-	char param[BUFL];
+	//char param[BUFL];
 	char sSocketPass[BUFL];
 	char cSocketPass[BUFL];
 	
@@ -100,6 +103,23 @@ int main()
 				printf("execl failed: %d\n", errno);
 			}
 		}
+		
+		error = waitpid(-1, &exitCode, WNOHANG);
+		if (error == -1)
+		{
+			printf("Error occurred with waitpid: %d\n", errno);
+			exit(6);
+		}
+		else if (error > 0)
+		{
+			printf("ServerG (id: %d) exited with code: %d\n", cpid, exitCode);
+		}
+		
+		
+		
+		
+		
+		
 		//else if (cpid > 0)
 		//{
 			//printf("here\n");
